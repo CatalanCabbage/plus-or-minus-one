@@ -426,13 +426,13 @@ var app = (function () {
     			div2 = element("div");
     			t5 = text(/*nextQuestionMsg*/ ctx[3]);
     			html_tag.a = t0;
-    			attr_dev(div0, "class", "result svelte-ajw28v");
+    			attr_dev(div0, "class", "result svelte-15fomiw");
     			add_location(div0, file, 123, 1, 3035);
-    			attr_dev(div1, "class", "error svelte-ajw28v");
+    			attr_dev(div1, "class", "error svelte-15fomiw");
     			add_location(div1, file, 124, 1, 3071);
-    			attr_dev(div2, "class", "nextQuestionMsg svelte-ajw28v");
+    			attr_dev(div2, "class", "nextQuestionMsg svelte-15fomiw");
     			add_location(div2, file, 125, 1, 3105);
-    			attr_dev(main, "class", "svelte-ajw28v");
+    			attr_dev(main, "class", "svelte-15fomiw");
     			add_location(main, file, 114, 0, 2694);
     		},
     		l: function claim(nodes) {

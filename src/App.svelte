@@ -134,6 +134,11 @@
 		margin: 0 auto;
 		display: inline;
 	}
+	:global(#value-amount) {
+		border:0;
+		border-bottom:solid 1px #000;
+		outline:none; /* prevents textbox highlight in chrome */
+	}
 	.result {
 		color: black;
 	}
