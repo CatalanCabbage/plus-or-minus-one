@@ -65,23 +65,24 @@
 			return;
 		}
 
-		let score = getScore(currentQuestionData.valueAmount, enteredAmount, currentQuestionData.tolerance);
+		let score = getScore(currentQuestionData.value.amount, enteredAmount, currentQuestionData.tolerance);
 		if (score == scores.CORRECT) {
 			let answerText = currentQuestionData.answer
-				.replace('{{valueAmount}}', currentQuestionData.valueAmount)
-				.replace('{{valueUnit}}', currentQuestionData.valueUnit);
+				.replace('{{valueAmount}}', currentQuestionData.value.amount)
+				.replace('{{valueUnit}}', currentQuestionData.value.unit);
 			result = '✔️' + answerText;
 		} else if (score == scores.CLOSE_ENOUGH) {
 			let answerText = currentQuestionData.answer
-				.replace('{{valueAmount}}', currentQuestionData.valueAmount)
-				.replace('{{valueUnit}}', currentQuestionData.valueUnit);
+				.replace('{{valueAmount}}', currentQuestionData.value.amount)
+				.replace('{{valueUnit}}', currentQuestionData.value.unit);
 			result = '🔸' + answerText;
 		} else {
 			let answerText = currentQuestionData.answer
-				.replace('{{valueAmount}}', currentQuestionData.valueAmount)
-				.replace('{{valueUnit}}', currentQuestionData.valueUnit);
+				.replace('{{valueAmount}}', currentQuestionData.value.amount)
+				.replace('{{valueUnit}}', currentQuestionData.value.unit);
 			result = '❌ ' + answerText;
 		}
+		
 		setTimeout(() => {
 			result = '';
 		}, millisToNextQuestion);
@@ -123,22 +124,35 @@
 	</header>
 	<section id="question">
 		{currentQuestionData.question.split('{{valueAmount}}')[0]
-			.replace('{{keyAmount}}', currentQuestionData.keyAmount)
-			.replace('{{keyUnit}}', currentQuestionData.keyUnit)
-			.replace('{{name}}', currentQuestionData.name)
-			.replace('{{valueUnit}}', currentQuestionData.valueUnit)
+			.replace('{{keyAmount}}', currentQuestionData.key?.amount)
+			.replace('{{keyUnit}}', currentQuestionData.key?.unit)
+			.replace('{{name}}', currentQuestionData?.name)
+			.replace('{{valueUnit}}', currentQuestionData.value?.unit)
 		}
 		<!-- svelte-ignore a11y-autofocus -->
 		<input type="number" id="value-amount" bind:value={enteredAmount} autofocus/>
 
 		{currentQuestionData.question.split('{{valueAmount}}')[1]
-			.replace('{{keyAmount}}', currentQuestionData.keyAmount)
-			.replace('{{keyUnit}}', currentQuestionData.keyUnit)
-			.replace('{{name}}', currentQuestionData.name)
-			.replace('{{valueUnit}}', currentQuestionData.valueUnit)
+			.replace('{{keyAmount}}', currentQuestionData.key?.amount)
+			.replace('{{keyUnit}}', currentQuestionData.key?.unit)
+			.replace('{{name}}', currentQuestionData?.name)
+			.replace('{{valueUnit}}', currentQuestionData.value?.unit)
 		}
 		<div id="results-container">
-			<div id="result">{result}</div>
+			<div id="result">
+				{#if result}
+					{result}
+					<div id="source">
+						{#if currentQuestionData.source?.link}
+							<div class="source-title">Source: </div> 
+							<a href={currentQuestionData.source.link}>{currentQuestionData.source.title}</a>
+						{:else if currentQuestionData.source?.title}
+							<div class="source-title">Source: </div>
+							{currentQuestionData.source.title}
+						{/if}
+					</div>
+				{/if}
+			</div>
 			<div id="error">{error}</div>
 		</div>
 	</section>
@@ -190,6 +204,20 @@
 	#result {
 		color: black;
 		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	#source {
+		font-size: 0.7em;
+		display: flex;
+		font-style: italic;
+		margin: 1em;
+	}
+	.source-title {
+		color: gray;
+		margin: auto 0.5em;
 	}
 	#error {
 		color: red;
