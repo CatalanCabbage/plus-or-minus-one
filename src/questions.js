@@ -64,7 +64,21 @@ let data = {
             'link': 'https://data.worldbank.org/indicator/SP.POP.TOTL?locations=IN',
             'title': 'Worldbank'
         }
-    },
+    },'double-given-rate-per-annum' : {
+        'question': 'Given an amount and a growth rate 10%, the number of {{valueUnit}} it will take to double the amount is approximately {{valueAmount}} {{valueUnit}}.',
+        'answer': 'The rule of 70, sometimes 69 or 72: years to double an amount = 70 / rate%',
+        'value': {
+            'type': 'math',
+            'amount': 7,
+            'unit': 'years',
+        },
+        'category': 'math',
+        'tolerance': 3,
+        'source': {
+            'link': 'https://www.investopedia.com/terms/r/rule-of-70.asp',
+            'title': 'Rule of 70'
+        }
+    }
 }
 
 export { data };
