@@ -2,6 +2,19 @@
 	import { data } from "./questions";
 
 	let allQuestions = Object.keys(data);
+	let completedQuestions = {};
+	if (localStorage.getItem("completedQuestions")) {
+		completedQuestions = localStorage.getItem("completedQuestions")
+	}
+	//Remove already answered questions
+	allQuestions = allQuestions.filter((question) => {completedQuestions[question]});
+	console.log('Remaining questions: ' + allQuestions);
+
+	function markQuestionCompleted(question) {
+		delete allQuestions[question];
+		completedQuestions[question] = Date.now();
+		localStorage.setItem("completedQuestions", JSON.stringify(completedQuestions));
+	}
 
 	let currentQuestion;
 	let currentQuestionData;
@@ -57,6 +70,13 @@
 	function submit() {
 		clearMessages();
 		let millisToNextQuestion = 5000;
+		if (!enteredAmount) {
+			error = `Enter a number. Any number!`;
+			setTimeout(() => {
+				error = '';
+			}, millisToNextQuestion);
+			return;
+		}
 		if (isNaN(enteredAmount)) {
 			error = `${enteredAmount} is not a number.`;
 			setTimeout(() => {
@@ -71,6 +91,7 @@
 				.replace('{{valueAmount}}', currentQuestionData.value.amount)
 				.replace('{{valueUnit}}', currentQuestionData.value.unit);
 			result = '✔️' + answerText;
+			markQuestionCompleted(currentQuestion);			
 		} else if (score == scores.CLOSE_ENOUGH) {
 			let answerText = currentQuestionData.answer
 				.replace('{{valueAmount}}', currentQuestionData.value.amount)

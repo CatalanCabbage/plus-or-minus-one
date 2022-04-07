@@ -65,8 +65,8 @@ let data = {
             'title': 'Worldbank'
         }
     },'double-given-rate-per-annum' : {
-        'question': 'Given an amount and a growth rate 10%, the number of {{valueUnit}} it will take to double the amount is approximately {{valueAmount}} {{valueUnit}}.',
-        'answer': 'The rule of 70, sometimes 69 or 72: years to double an amount = 70 / rate%',
+        'question': 'With a growth rate of 10%, you can double your money in approximately {{valueAmount}} {{valueUnit}}.',
+        'answer': 'The rule of 70 (or 69 or 72): Years to double an amount = 70 / rate%',
         'value': {
             'type': 'math',
             'amount': 7,
