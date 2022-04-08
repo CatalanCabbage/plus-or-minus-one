@@ -4,10 +4,10 @@
 	let allQuestions = Object.keys(data);
 	let completedQuestions = {};
 	if (localStorage.getItem("completedQuestions")) {
-		completedQuestions = localStorage.getItem("completedQuestions")
+		completedQuestions = JSON.parse(localStorage.getItem("completedQuestions"));
 	}
 	//Remove already answered questions
-	allQuestions = allQuestions.filter((question) => {completedQuestions[question]});
+	allQuestions = allQuestions.filter((question) => {return completedQuestions[question] == null});
 	console.log('Remaining questions: ' + allQuestions);
 
 	function markQuestionCompleted(question) {
@@ -34,6 +34,7 @@
 	}
 
 	function setRandomQuestion() {
+		console.log('Remaining questions: ' + allQuestions);
 		clearMessages();
 		clearInput();
 		let randomQuestion = allQuestions[Math.floor(Math.random() * allQuestions.length)];
